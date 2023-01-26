@@ -50,12 +50,9 @@ class StudentControllerTest {
     @Test
     @DisplayName("Test if given an existing id, getStudentById request will return an Ok status")
     public void testGetStudentById() throws Exception {
-        //given: student Entity
         int existing_student_id = 1;
         StudentEntity existing_student = new StudentEntity(1,"Test Name", 1, "Test Address");
         given(studentService.getStudentById(existing_student_id)).willReturn(existing_student);
-        //When: addStudent post request is called
-        //mockMvc.perform(MockMvcRequestBuilders.get("/student//{student-id}").path().andExpect(MockMvcResultMatchers.status().isOk());
         mockMvc.perform(get("/student//{student-id}", existing_student_id)).andExpect(status().isOk());
     }
 }
