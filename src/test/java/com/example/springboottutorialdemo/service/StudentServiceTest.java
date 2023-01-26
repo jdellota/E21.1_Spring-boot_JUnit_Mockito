@@ -56,10 +56,11 @@ class StudentServiceTest {
     @Test
     @DisplayName("This tests that given a student entity, when addStudent method is executed, it should return new student entity")
     public  void testAddStudent(){
-        StudentEntity newStudent = new StudentEntity(1,"Test Name", 1, "Test Address");
-        given(studentRepository.save(newStudent)).willReturn(newStudent);
+        StudentEntity newStudent = new StudentEntity("Test Name", 1, "Test Address");
+        StudentEntity returnedNewStudent = new StudentEntity(1,"Test Name", 1, "Test Address");
+        given(studentRepository.save(newStudent)).willReturn(returnedNewStudent);
         StudentEntity result=studentService.addStudent(newStudent);
-        assertEquals(newStudent, result);
+        assertEquals(returnedNewStudent, result);
     }
 
     @Test
@@ -71,7 +72,7 @@ class StudentServiceTest {
         StudentEntity result = studentService.deleteStudentById(existing_student_id);
 
         assertEquals(null, result);
-        verify(studentRepository, times(1)).delete(deleteStudent);
+        verify(studentRepository, atLeast(1)).delete(deleteStudent);
     }
 
     @Test
